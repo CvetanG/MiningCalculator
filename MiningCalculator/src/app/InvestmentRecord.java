@@ -3,17 +3,17 @@ package app;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InvestmentRecord {
+public class InvestmentRecord implements Cloneable {
 	
-	List<String> recordPlanes;
+	List<String> recordPlans;
 	double recordCash;
 	int recordMaxGainedHash;
 	double recordFutureIncome;
 	int recordFuturePeriod;
 	
-	public InvestmentRecord(List<String> recordPlanes, double recordCash, int recordMaxGainedHash,
+	public InvestmentRecord(List<String> recordPlans, double recordCash, int recordMaxGainedHash,
 			double recordFutureIncome, int recordFuturePeriod) {
-		this.recordPlanes = recordPlanes;
+		this.recordPlans = recordPlans;
 		this.recordCash = recordCash;
 		this.recordMaxGainedHash = recordMaxGainedHash;
 		this.recordFutureIncome = recordFutureIncome;
@@ -21,19 +21,19 @@ public class InvestmentRecord {
 	}
 	
 	public InvestmentRecord() {
-		this.recordPlanes = new ArrayList<>();
+		this.recordPlans = new ArrayList<>();
 	}
 
-	public void addPlaneName(String planeName) {
-		recordPlanes.add(planeName);
+	public void addPlanName(String planName) {
+		recordPlans.add(planName);
 	}
 
-	public List<String> getRecordPlanes() {
-		return recordPlanes;
+	public List<String> getRecordPlans() {
+		return recordPlans;
 	}
 
-	public void setRecordPlanes(List<String> recordPlanes) {
-		this.recordPlanes = recordPlanes;
+	public void setRecordPlans(List<String> recordPlans) {
+		this.recordPlans = recordPlans;
 	}
 
 	public double getRecordCash() {
@@ -71,7 +71,7 @@ public class InvestmentRecord {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		for (String plan : recordPlanes) {
+		for (String plan : recordPlans) {
 			sb.append(plan);
 			sb.append(", ");
 		}
@@ -79,6 +79,11 @@ public class InvestmentRecord {
 				+ "$. Max Hash Rate gained: " + recordMaxGainedHash + "H/s" + ". Future Income: "
 				+ Utils.formatter.format(recordFutureIncome) + "$ after " + recordFuturePeriod + " days.";
 
+	}
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 	
 	

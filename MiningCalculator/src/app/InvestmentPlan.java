@@ -1,12 +1,12 @@
 package app;
 
-public class InvestmentPlane implements Cloneable {
+public class InvestmentPlan implements Cloneable {
 	double planPrice;
 	int planHash;
 	int planPeriod;
 	String planName;
 
-	public InvestmentPlane(double planPrice, int planHash, int planPeriod, String planName) {
+	public InvestmentPlan(double planPrice, int planHash, int planPeriod, String planName) {
 		this.planPrice = planPrice;
 		this.planHash = planHash;
 		this.planPeriod = planPeriod;
