@@ -4,10 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class Permutation {
-
+/*
 	private static void createVariationsRepetition(List<int[]> listResults, int[] dataToCombine, int[] result, int count) {
 		if (count < result.length) {
 			for (int i = 0; i < dataToCombine.length; i++) {
@@ -18,78 +17,92 @@ public class Permutation {
 			listResults.add(result.clone());
 		}
 	}
-	
-	private static void createVariationsRepetitionListStrings(List<String[]> listResults, String[] result, int count) {
+	*/
+	/*
+	private static void createVarRepListStrings(List<List<String>> listResults, List<String> dataToCombine,
+			String[] result, int count) {
+		
+		if (count < result.length) {
+			for (int i = 0; i < dataToCombine.size(); i++) {
+				result[count] = dataToCombine.get(i);
+				createVarRepListStrings(listResults, dataToCombine, result, count + 1);
+			}
+		} else {
+			listResults.add(Arrays.asList(result.clone()));
+		}
+		
+	}
+	*/
+	private static void createVarRepListStrings(List<List<String>> listResults, String[] result, int count) {
+		
 		if (count < result.length) {
 			for (int i = 0; i < Utils.allPlanList.size(); i++) {
 				result[count] = Utils.allPlanList.get(i).getPlanName();
-				createVariationsRepetitionListStrings(listResults, result, count + 1);
+				createVarRepListStrings(listResults, result, count + 1);
 			}
 		} else {
-			listResults.add(result.clone());
+			listResults.add(Arrays.asList(result.clone()));
 		}
+		
 	}
-	
-	/*
-	 * https://stackoverflow.com/questions/24460480/permutation-of-an-arraylist-of-numbers-using-recursion
-	public static List<List<Integer>> listPermutations(List<Integer> list) {
 
-	    if (list.size() == 0) {
-	        List<List<Integer>> result = new ArrayList<List<Integer>>();
-	        result.add(new ArrayList<Integer>());
-	        return result;
-	    }
+	/*private static List<List<String>> listPermutationsString(List<InvestmentPlan> permStrList) {
 
-	    List<List<Integer>> returnMe = new ArrayList<List<Integer>>();
-
-	    Integer firstElement = list.remove(0);
-
-	    List<List<Integer>> recursiveReturn = listPermutations(list);
-	    for (List<Integer> li : recursiveReturn) {
-
-	        for (int index = 0; index <= li.size(); index++) {
-	            List<Integer> temp = new ArrayList<Integer>(li);
-	            temp.add(index, firstElement);
-	            returnMe.add(temp);
-	        }
-
-	    }
-	    return returnMe;
-	}
-	*/
-	
-	public static List<List<String>> listPermutations(List<InvestmentPlan> list) {
-
-	    if (list.size() == 0) {
+	    if (permStrList.size() == 0) {
 	        List<List<String>> result = new ArrayList<List<String>>();
 	        result.add(new ArrayList<String>());
 	        return result;
 	    }
 
-	    List<List<String>> returnMe = new ArrayList<List<String>>();
+	    List<List<String>> returnList = new ArrayList<List<String>>();
 
-	    String firstElement = list.get(0).getPlanName();
-//	    list.remove(0);
+	    String firstElement = permStrList.get(0).getPlanName();
+	    permStrList.remove(0);
 
-	    List<List<String>> recursiveReturn = listPermutations(list);
-	    for (List<String> li : recursiveReturn) {
+	    List<List<String>> recursiveReturn = listPermutationsString(permStrList);
+	    for (List<String> intList : recursiveReturn) {
 
-	        for (int index = 0; index <= li.size(); index++) {
-	            List<String> temp = new ArrayList<String>(li);
+	        for (int index = 0; index <= intList.size(); index++) {
+	            List<String> temp = new ArrayList<String>(intList);
 	            temp.add(index, firstElement);
-	            returnMe.add(temp);
+	            returnList.add(temp);
 	        }
 
 	    }
-	    return returnMe;
+	    return returnList;
+	}*/
+	/*
+	public static List<List<Integer>> listPermutations(List<Integer> permIntList, int count) {
+
+	    if (count == permIntList.size()) {
+	        List<List<Integer>> result = new ArrayList<List<Integer>>();
+	        result.add(new ArrayList<Integer>());
+	        return result;
+	    }
+
+	    List<List<Integer>> returnList = new ArrayList<List<Integer>>();
+
+	    Integer firstElement = permIntList.get(count);
+
+	    List<List<Integer>> recursiveReturn = listPermutations(permIntList, count + 1);
+	    for (List<Integer> intList : recursiveReturn) {
+
+	        for (int index = 0; index <= intList.size(); index++) {
+	            List<Integer> temp = new ArrayList<Integer>(intList);
+	            temp.add(index, firstElement);
+	            returnList.add(temp);
+	        }
+
+	    }
+	    return returnList;
 	}
+	*/
 	
-	
+	/*
 	static int topSum = Integer.MIN_VALUE;
 	static int[] topArray = null;
 	private static void printVarTopSum(List<int[]> listResults, int[] dataToCombine, int[] result, int count) {
 		
-				
 		topArray = new int[result.length];
 		
 		if (count < result.length) {
@@ -107,23 +120,46 @@ public class Permutation {
 		}
 		
 	}
-
+*/
 	public static void main(String[] args) throws IOException {
-		/*List<int[]> listResults = new ArrayList<>();
-		int[] dataToCombine = { 1, 2, 3, 4 };
-		String[] result = new String[3];*/
-//		createVariationsRepetition(listResults, dataToCombine, result, 0);
-//		for (int[] rep : listResults) {
-//			System.out.println(Arrays.toString(rep));
-//		}
-		
 		/*
 		List<int[]> listResults = new ArrayList<>();
 		int[] dataToCombine = { 1, 2, 3, 4 };
-		String[] result = new String[3]
-		printVarTopSum(listResults, dataToCombine, result, 0);
-		System.out.println(Arrays.toString(topArray) + "\nSum: " + topSum);
+		int[] result = new int[3];
+		createVariationsRepetition(listResults, dataToCombine, result, 0);
+		for (int[] rep : listResults) {
+			System.out.println(Arrays.toString(rep));
+		}
 		*/
+		
+		List<String> dataToCombine = new ArrayList<>();
+		dataToCombine.add("plane_01");
+		dataToCombine.add("plane_02");
+		dataToCombine.add("plane_03");
+		dataToCombine.add("plane_04");
+		
+		List<List<String>> listResults = new ArrayList<>();
+		int resultWidth = 3;
+		String[] result = new String[resultWidth];
+		createVarRepListStrings(listResults, result, 0);
+		
+		int num = 1;
+		for (List<String> strList : listResults) {
+	        String appender = "";
+	        if (10 > num) {
+	        	System.out.print("0" + num + ". ");
+			} else {
+				System.out.print(num + ". ");
+			}
+	        for (String str : strList) {
+	            System.out.print(appender + str);
+	            appender = " ";
+	        }
+	        num++;
+	        System.out.println();
+	    }
+
+		
 		/*
 		List<String[]> listResults = new ArrayList<>();
 		String[] result = new String[2];
@@ -132,14 +168,36 @@ public class Permutation {
 			System.out.println(Arrays.toString(rep));
 		}
 		*/
+		/*
+		List<InvestmentPlan> tempPlanList = new ArrayList<>(Utils.allPlanList);
 		
-		List<List<String>> listResults = listPermutations(Utils.allPlanList);
-		for (List<String> rep : listResults) {
-			for (String string : rep) {
-				System.out.printf(string + " ");
-			}
-			System.out.println();
-		}
+		List<List<String>> listResults = listPermutationsString(tempPlanList);
+		for (List<String> strList : listResults) {
+	        String appender = "";
+	        for (String str : strList) {
+	            System.out.print(appender + str);
+	            appender = " ";
+	        }
+	        System.out.println();
+	    }
+		*/
+
+		/*
+		List<Integer> permIntList = new ArrayList<Integer>();
+		permIntList.add(1);
+		permIntList.add(2);
+		permIntList.add(3);
+	    List<List<Integer>> resultPermLists = listPermutations(permIntList, 0);
+
+	    for (List<Integer> intList : resultPermLists) {
+	        String appender = "";
+	        for (Integer i : intList) {
+	            System.out.print(appender + i);
+	            appender = " ";
+	        }
+	        System.out.println();
+	    }
+	    */
 	}
 
 }

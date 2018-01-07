@@ -10,14 +10,18 @@ public class InvestmentRecord implements Cloneable {
 	int recordMaxGainedHash;
 	double recordFutureIncome;
 	int recordFuturePeriod;
+	int recordPassedDays; // to max gained hash
+	int recordActivePeriod;
 	
 	public InvestmentRecord(List<String> recordPlans, double recordCash, int recordMaxGainedHash,
-			double recordFutureIncome, int recordFuturePeriod) {
+			double recordFutureIncome, int recordFuturePeriod, int recordPassedDays, int recordActivePeriod) {
 		this.recordPlans = recordPlans;
 		this.recordCash = recordCash;
 		this.recordMaxGainedHash = recordMaxGainedHash;
 		this.recordFutureIncome = recordFutureIncome;
 		this.recordFuturePeriod = recordFuturePeriod;
+		this.recordPassedDays = recordPassedDays;
+		this.recordActivePeriod = recordActivePeriod;
 	}
 	
 	public InvestmentRecord() {
@@ -68,6 +72,22 @@ public class InvestmentRecord implements Cloneable {
 		this.recordFuturePeriod = recordFuturePeriod;
 	}
 
+	public int getRecordPassedDays() {
+		return recordPassedDays;
+	}
+
+	public void setRecordPassedDays(int passedDays) {
+		this.recordPassedDays = passedDays;
+	}
+
+	public int getRecordActivePeriod() {
+		return recordActivePeriod;
+	}
+
+	public void setRecordActivePeriod(int activePeriod) {
+		this.recordActivePeriod = activePeriod;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -75,8 +95,8 @@ public class InvestmentRecord implements Cloneable {
 			sb.append(plan);
 			sb.append(", ");
 		}
-		return "InvestmentRecord: " + sb + "\nGained cash end of the preriod: " + Utils.formatter.format(recordCash)
-				+ "$. Max Hash Rate gained: " + recordMaxGainedHash + "H/s" + ". Future Income: "
+		return "InvestmentRecord: " + sb + "\nGained cash for " + recordActivePeriod + " days: " + Utils.formatter.format(recordCash)
+				+ "$. Max Hash Rate gained: " + recordMaxGainedHash + "H/s" + " for " + recordPassedDays + " days. Future Income: "
 				+ Utils.formatter.format(recordFutureIncome) + "$ after " + recordFuturePeriod + " days.";
 
 	}
@@ -85,6 +105,5 @@ public class InvestmentRecord implements Cloneable {
 	protected Object clone() throws CloneNotSupportedException {
 		return super.clone();
 	}
-	
 	
 }

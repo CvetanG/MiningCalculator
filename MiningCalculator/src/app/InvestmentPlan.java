@@ -1,6 +1,7 @@
 package app;
 
 public class InvestmentPlan implements Cloneable {
+	
 	double planPrice;
 	int planHash;
 	int planPeriod;
