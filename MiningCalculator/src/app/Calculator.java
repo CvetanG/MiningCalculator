@@ -13,13 +13,13 @@ public class Calculator {
 	public static final int investmentYears = 3;
 	public static final int investmentDays = 365 * investmentYears;
 
-	static int topHashRate = Integer.MIN_VALUE;
-	static int maxpassedDays = Integer.MAX_VALUE;
+	static int maxHashRate = Integer.MIN_VALUE;
+	static int maxPassedDays = Integer.MAX_VALUE;
 //	static InvestmentRecord topInvestmentRecord = null;
 	
 	
 	// OK
-	public static void createVarRepListStrings(List<List<InvestmentPlan>> listResults, InvestmentPlan[] result, int count) {
+	public static void createVarRepListStrings(List<List<InvestmentPlan>> listResults, InvestmentPlan[] result, int count) throws CloneNotSupportedException {
 		
 		if (count < result.length) {
 			for (int i = 0; i < Utils.allPlanList.size(); i++) {
@@ -28,7 +28,7 @@ public class Calculator {
 			}
 		} else {
 			List<InvestmentPlan> tempList = new ArrayList<>();
-			tempList.add(Utils.allPlanList.get(1));
+			tempList.add((InvestmentPlan) Utils.allPlanList.get(1).clone());
 			tempList.addAll(Arrays.asList(result.clone()));
 			listResults.add(tempList);
 //			tempList.clear();
@@ -88,16 +88,17 @@ public class Calculator {
 	
 	// OK
 	public static InvestmentRecord calculatePredefineInvestmentPlan(List<InvestmentPlan> planList, int investmentDaysLeft, boolean print) throws CloneNotSupportedException {
-		List<InvestmentPlan> stratPlanList = new ArrayList<>();
-		stratPlanList.add(planList.get(0));
+		List<InvestmentPlan> startPlanList = new ArrayList<>();
+		startPlanList.add(planList.get(0));
 		int j  = 1;
 
-		Mining mining = new Mining(stratPlanList, XMR_1Hs_day, moneroPriceUSD, investmentDays);
+		Mining mining = new Mining(startPlanList, XMR_1Hs_day, moneroPriceUSD, investmentDays);
 		
 		if (print) {
 			System.out.println("Start mining with Hash Rate: " + mining.getMiningHash() + "H/s. Income per day is: " + Utils.formatter.format(mining.calculateIncomePerDay()) + "$");
 		}
-		InvestmentPlan addPlan =  (InvestmentPlan) planList.get(j).clone();
+		InvestmentPlan addPlan =  (InvestmentPlan) planList.get(j); // plane is clonning in addPlan()
+//		Mining tempMining
 		for (int i = 1; i <= investmentDaysLeft; i++) {
 			mining.miningDay(print);
 
@@ -106,7 +107,7 @@ public class Calculator {
 				if (mining.income > pricePlan) {
 					mining.income -= pricePlan;
 					mining.addPlan(addPlan);
-					addPlan =  (InvestmentPlan) planList.get(j + 1).clone();
+					addPlan =  (InvestmentPlan) planList.get(j + 1);
 					if (print) {
 						printText(mining, i, addPlan);
 					}
@@ -130,12 +131,12 @@ public class Calculator {
 			int tempHashRate = invRec.getRecordMaxGainedHash();
 			int temppassedDays = invRec.getRecordPassedDays();
 			
-			if (tempHashRate > topHashRate) {
-				topHashRate = tempHashRate;
-				maxpassedDays = temppassedDays;
+			if (tempHashRate > maxHashRate) {
+				maxHashRate = tempHashRate;
+				maxPassedDays = temppassedDays;
 				bestInvRec = (InvestmentRecord) invRec.clone();
-			} else if (tempHashRate > topHashRate && temppassedDays < maxpassedDays) {
-				maxpassedDays = temppassedDays;
+			} else if (tempHashRate > maxHashRate && temppassedDays < maxPassedDays) {
+				maxPassedDays = temppassedDays;
 				bestInvRec = (InvestmentRecord) invRec.clone();
 			}
 		}
@@ -144,7 +145,7 @@ public class Calculator {
 		
 	}
 	
-	// ?
+	// OK?
 	public static void calcPredInvestRecord(InvestmentRecord record, int investmentdays, boolean print) throws CloneNotSupportedException {
 		List<String> planNameList = record.getRecordPlans();
 		List<InvestmentPlan> planList = new ArrayList<>();
@@ -164,12 +165,12 @@ public class Calculator {
 	}
 
 	public static void main(String[] args) throws CloneNotSupportedException {
-
+/*
 		List<InvestmentPlan> stratPlanList = new ArrayList<>();
 		stratPlanList.add(Utils.plan_02);
 
 		Mining mining = new Mining(stratPlanList, XMR_1Hs_day, moneroPriceUSD, investmentDays);
-
+*/
 		//		calculateInvestmentWithPlan_01(mining, investmentDays);
 
 		/*
@@ -203,7 +204,7 @@ public class Calculator {
 		int resultWidth = 2;
 		InvestmentPlan[] result = new InvestmentPlan[resultWidth];
 		createVarRepListStrings(listResults, result, 0);
-		
+		System.out.println(listResults.size() + " plans created.");
 		InvestmentRecord bestInvRec = calcBestPredInvestPlanLists(listResults, investmentDays, false);
 		calcPredInvestRecord(bestInvRec, investmentDays, true);
 		
