@@ -93,12 +93,16 @@ public class InvestmentRecord implements Cloneable {
 		StringBuilder sb = new StringBuilder();
 		for (String plan : recordPlans) {
 			sb.append(plan);
-			sb.append(", ");
+			if (plan != recordPlans.get(recordPlans.size() - 1)) {
+				sb.append(", ");
+			} else {
+				sb.append(".");
+			}
 		}
 		return "InvestmentRecord: " + sb + "\nGained cash for " + recordActivePeriod + " days: " + Utils.formatter.format(recordCash)
-				+ "$. Max Hash Rate gained: " + recordMaxGainedHash + "H/s" + " for " + recordPassedDays + " days. Future Income: "
+				+ "$. Max Hash Rate gained: " + recordMaxGainedHash + "H/s" + " for " + recordPassedDays + " days"
+				+ "(" + (recordPassedDays / 30) + " months). \nFuture Income: "
 				+ Utils.formatter.format(recordFutureIncome) + "$ after " + recordFuturePeriod + " days.";
-
 	}
 	
 	@Override

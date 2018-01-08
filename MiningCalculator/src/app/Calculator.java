@@ -10,8 +10,8 @@ public class Calculator {
 	public static final double Hs = 1300.0;
 	public static final double XMR_1Hs_day = XMRDay / Hs;
 
-	public static final int investmentYears = 3;
-	public static final int investmentDays = 365 * investmentYears;
+	public static final int investmentYears = 5;
+	public static final int investmentDays = 365 * investmentYears; // 3y = 1095
 
 	static int maxHashRate = Integer.MIN_VALUE;
 	static int maxPassedDays = Integer.MAX_VALUE;
@@ -19,16 +19,18 @@ public class Calculator {
 	
 	
 	// OK
-	public static void createVarRepListStrings(List<List<InvestmentPlan>> listResults, InvestmentPlan[] result, int count) throws CloneNotSupportedException {
+	public static void createVarRepListStrings(List<List<InvestmentPlan>> listResults, List<InvestmentPlan> boughtPlanes, InvestmentPlan[] result, int count) throws CloneNotSupportedException {
 		
 		if (count < result.length) {
 			for (int i = 0; i < Utils.allPlanList.size(); i++) {
 				result[count] = Utils.allPlanList.get(i);
-				createVarRepListStrings(listResults, result, count + 1);
+				createVarRepListStrings(listResults, boughtPlanes, result, count + 1);
 			}
 		} else {
 			List<InvestmentPlan> tempList = new ArrayList<>();
-			tempList.add((InvestmentPlan) Utils.allPlanList.get(1).clone());
+			for (InvestmentPlan bPlan : boughtPlanes) {
+				tempList.add((InvestmentPlan) bPlan.clone());
+			}
 			tempList.addAll(Arrays.asList(result.clone()));
 			listResults.add(tempList);
 //			tempList.clear();
@@ -97,24 +99,28 @@ public class Calculator {
 		if (print) {
 			System.out.println("Start mining with Hash Rate: " + mining.getMiningHash() + "H/s. Income per day is: " + Utils.formatter.format(mining.calculateIncomePerDay()) + "$");
 		}
-		InvestmentPlan addPlan =  (InvestmentPlan) planList.get(j); // plane is clonning in addPlan()
-//		Mining tempMining
-		for (int i = 1; i <= investmentDaysLeft; i++) {
-			mining.miningDay(print);
+			InvestmentPlan addPlan =  (InvestmentPlan) planList.get(j); // plane is clonning in addPlan()
+	//		Mining tempMining
+			for (int i = 1; i <= investmentDaysLeft; i++) {
+				mining.miningDay(print);
 
-			if ((planList.size() - 1) >= j) {
-				double pricePlan = addPlan.getPlanPrice();
-				if (mining.income > pricePlan) {
-					mining.income -= pricePlan;
-					mining.addPlan(addPlan);
-					addPlan =  (InvestmentPlan) planList.get(j + 1);
-					if (print) {
-						printText(mining, i, addPlan);
-					}
-//					mining.passedDays = i;
-				} 
+				if ((planList.size()) > j) {
+					double pricePlan = addPlan.getPlanPrice();
+					if (mining.income > pricePlan) {
+						mining.income -= pricePlan;
+						mining.addPlan(addPlan);
+						if (print) {
+							printText(mining, i, addPlan);
+						}
+						if ((planList.size() - 1) > j) {
+							addPlan =  (InvestmentPlan) planList.get(j += 1);
+						} else {
+							j++;
+						}
+						mining.passedDays = i;
+					} 
+				}
 			}
-		}
 		mining.calculateLastDays(mining.income);
 		return mining.getRecord();
 		
@@ -153,13 +159,15 @@ public class Calculator {
 			int planIndex = Integer.parseInt(stringName.substring(stringName.length() - 1, stringName.length()));
 			planList.add(Utils.allPlanList.get(planIndex - 1));
 		}
-		calculatePredefineInvestmentPlan(planList, investmentdays, print);
+		System.out.println(calculatePredefineInvestmentPlan(planList, investmentdays, print));
+		
 	}
 	
 	// OK
 	public static void printText(Mining mining, int i, InvestmentPlan addPlan) {
 		System.out.println(Utils.formatter.format(addPlan.getPlanPrice()) + "$ plan bought for "
-				+ (i -  mining.passedDays) + " days. " + "Total " + i + " days passed. " 
+				+ (i -  mining.passedDays) + " days (" + ((i -  mining.passedDays) / 30) + " months). "
+				+ "Total " + i + " days passed (" + (i / 30) + " months)."
 				+ " Continue mining with Hash Rate: " + mining.getMiningHash() + "H/s"
 				+ " New income per day will be: " + Utils.formatter.format(mining.calculateIncomePerDay()) + "$ ");
 	}
@@ -174,20 +182,42 @@ public class Calculator {
 		//		calculateInvestmentWithPlan_01(mining, investmentDays);
 
 		/*
+		 *plane 4 ok excel 
 		List<InvestmentPlan> demoPlanList = new ArrayList<>();
 		demoPlanList.add(Utils.plan_02);
 		demoPlanList.add(Utils.plan_01);
 		demoPlanList.add(Utils.plan_01);
+		demoPlanList.add(Utils.plan_02);
+		demoPlanList.add(Utils.plan_02);
+		demoPlanList.add(Utils.plan_03);
+		demoPlanList.add(Utils.plan_03);
+		demoPlanList.add(Utils.plan_04);
+		demoPlanList.add(Utils.plan_05);
+		demoPlanList.add(Utils.plan_06);
+		demoPlanList.add(Utils.plan_06);
+		demoPlanList.add(Utils.plan_07);
+		demoPlanList.add(Utils.plan_07);
+		demoPlanList.add(Utils.plan_08);
+		demoPlanList.add(Utils.plan_09);
+		demoPlanList.add(Utils.plan_10);
+		demoPlanList.add(Utils.plan_10);
+		demoPlanList.add(Utils.plan_11);
+		*/
+		/*
+		List<InvestmentPlan> demoPlanList = new ArrayList<>();
+		demoPlanList.add(Utils.plan_02);
 		demoPlanList.add(Utils.plan_01);
 		demoPlanList.add(Utils.plan_01);
+		demoPlanList.add(Utils.plan_03);
 		demoPlanList.add(Utils.plan_01);
-		demoPlanList.add(Utils.plan_01);
-		demoPlanList.add(Utils.plan_01);
-		demoPlanList.add(Utils.plan_01);
+		demoPlanList.add(Utils.plan_06);
+		demoPlanList.add(Utils.plan_04);
+		demoPlanList.add(Utils.plan_06);
+		demoPlanList.add(Utils.plan_06);
+		demoPlanList.add(Utils.plan_08);
 		InvestmentRecord invRec = calculatePredefineInvestmentPlan(demoPlanList, investmentDays, true);
 		System.out.println(invRec);
-		 */
-
+		*/
 		/*
 		List<InvestmentRecord> listResults = new ArrayList<>();
 
@@ -201,14 +231,25 @@ public class Calculator {
 		*/
 		
 		List<List<InvestmentPlan>> listResults = new ArrayList<>();
-		int resultWidth = 2;
-		InvestmentPlan[] result = new InvestmentPlan[resultWidth];
-		createVarRepListStrings(listResults, result, 0);
+		int resultWidth = 11;
+		List<InvestmentPlan> boughtPlanes = new ArrayList<>();
+		boughtPlanes.add(Utils.plan_02);
+		boughtPlanes.add(Utils.plan_01);
+		boughtPlanes.add(Utils.plan_01);
+		boughtPlanes.add(Utils.plan_03);
+		
+		InvestmentPlan[] result = new InvestmentPlan[resultWidth - boughtPlanes.size()];
+		createVarRepListStrings(listResults, boughtPlanes, result, 0);
 		System.out.println(listResults.size() + " plans created.");
+		System.out.println((resultWidth) + " plans in investment record, with " 
+				+ investmentYears + " years investing period.");
+		System.out.println();
+		
 		InvestmentRecord bestInvRec = calcBestPredInvestPlanLists(listResults, investmentDays, false);
+		System.out.println("Best plane: " + bestInvRec);
+		System.out.println();
 		calcPredInvestRecord(bestInvRec, investmentDays, true);
 		
 	}
-
 
 }

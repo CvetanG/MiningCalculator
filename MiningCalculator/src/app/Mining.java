@@ -35,12 +35,17 @@ public class Mining {
 	
 	public void calculateLastDays(double cash) {
 		double result = 0.0;
-		for (InvestmentPlan plan : miningPlans) {
-			result += (plan.getPlanPeriod() * XMR_1Hs_Day * plan.getPlanHash() * moneroPriceUSD);
+		if (getMiningPlans().size() > 0) {
+			for (InvestmentPlan plan : miningPlans) {
+				result += (plan.getPlanPeriod() * XMR_1Hs_Day * plan.getPlanHash() * moneroPriceUSD);
+			}
+			record.setRecordFutureIncome(result);
+			record.setRecordFuturePeriod(getMiningPlans().get(getMiningPlans().size() - 1).getPlanPeriod());
+		} else {
+			record.setRecordFutureIncome(result);
+			record.setRecordFuturePeriod(0);
 		}
 		record.setRecordCash(cash);
-		record.setRecordFutureIncome(result);
-		record.setRecordFuturePeriod(getMiningPlans().get(getMiningPlans().size() - 1).getPlanPeriod());
 		record.setRecordActivePeriod(getInvDays());
 	}
 
@@ -78,7 +83,7 @@ public class Mining {
 			removePlan(removeList, print);
 		}
 		income += result;
-		passedDays++;
+//		passedDays++;
 	}
 
 	public List<InvestmentPlan> getMiningPlans() {
@@ -128,6 +133,12 @@ public class Mining {
 	public void setInvDays(int invDays) {
 		this.invDays = invDays;
 	}
-	
+
+	@Override
+	public String toString() {
+		return record + ", " + miningPlans + ", " + moneroPriceUSD
+				+ ", " + XMR_1Hs_Day + ", " + miningHash + ", " + income + ", "
+				+ passedDays + ", " + invDays;
+	}
 	
 }

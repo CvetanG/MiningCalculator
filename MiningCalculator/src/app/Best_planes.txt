@@ -1,0 +1,80 @@
+1,331 plans created. !!!
+4 plans in investment record, with 2 years investing period.
+Best plane: InvestmentRecord: plan_02, plan_01, plan_01, plan_03, 
+Gained cash for 730 days: 53.95 $. Max Hash Rate gained: 5000H/s for 725 days(24 months). 
+Future Income: 4069.03 $ after 725 days.
+
+1,331 plans created. !!!
+4 plans in investment record, with 3 years investing period.
+Best plane: InvestmentRecord: plan_02, plan_01, plan_03, plan_06, 
+Gained cash for 1095 days: 394.51 $. Max Hash Rate gained: 5700H/s for 1053 days(35 months). 
+Future Income: 4976.07 $ after 688 days.
+
+161,051 plans created.
+6 plans in investment record, with 4 years investing period.
+Best plane: InvestmentRecord: plan_02, plan_01, plan_04, plan_03, plan_06, plan_06, 
+Gained cash for 1460 days: 108.93 $. Max Hash Rate gained: 10000H/s for 1455 days(48 months). 
+Future Income: 8518.27 $ after 725 days.
+
+1,771,561 plans created. 
+7 plans in investment record, with 4 years investing period.
+Best plane: InvestmentRecord: plan_02, plan_01, plan_01, plan_03, plan_02, plan_05, plan_07, 
+Gained cash for 1460 days: 153.53 $. Max Hash Rate gained: 10700H/s for 1452 days(48 months). 
+Future Income: 9498.62 $ after 722 days.
+
+19,487,171 plans created. !!!
+8 plans in investment record, with 4 years investing period.
+Best plane: InvestmentRecord: plan_02, plan_01, plan_01, plan_03, plan_02, plan_05, plan_06, plan_06, 
+Gained cash for 1460 days: 224.40 $. Max Hash Rate gained: 11700H/s for 1450 days(48 months). 
+Future Income: 10046.54 $ after 720 days.
+Start mining with Hash Rate: 1300H/s. Income per day is: 2.56 $
+830.00 $ plan bought for 324 days (10 months). Total 324 days passed. (10 months) Continue mining with Hash Rate: 2300H/s New income per day will be: 4.53 $ 
+830.00 $ plan bought for 184 days (6 months). Total 508 days passed. (16 months) Continue mining with Hash Rate: 3300H/s New income per day will be: 6.50 $ 
+1411.00 $ plan bought for 217 days (7 months). Total 725 days passed. (24 months) Continue mining with Hash Rate: 5000H/s New income per day will be: 9.85 $ 
+Plan expired so 1300 H/s are removed. Left Hash Rate is: 3700H/s
+1079.00 $ plan bought for 146 days (4 months). Total 871 days passed. (29 months) Continue mining with Hash Rate: 5000H/s New income per day will be: 9.85 $ 
+Plan expired so 1000 H/s are removed. Left Hash Rate is: 4000H/s
+2241.00 $ plan bought for 239 days (7 months). Total 1110 days passed. (37 months) Continue mining with Hash Rate: 6700H/s New income per day will be: 13.21 $ 
+Plan expired so 1000 H/s are removed. Left Hash Rate is: 5700H/s
+2460.00 $ plan bought for 196 days (6 months). Total 1306 days passed. (43 months) Continue mining with Hash Rate: 8700H/s New income per day will be: 17.15 $ 
+2460.00 $ plan bought for 144 days (4 months). Total 1450 days passed. (48 months) Continue mining with Hash Rate: 11700H/s New income per day will be: 23.06 $ 
+Plan expired so 1700 H/s are removed. Left Hash Rate is: 10000H/s
+InvestmentRecord: plan_02, plan_01, plan_01, plan_03, plan_02, plan_05, plan_06, plan_06, 
+Gained cash for 1460 days: 224.40 $. Max Hash Rate gained: 11700H/s for 1450 days(48 months). 
+Future Income: 8176.11 $ after 720 days.
+
+14,641 plans created.
+8 plans in investment record, with 5 years investing period.
+Best plane: InvestmentRecord: plan_02, plan_01, plan_01, plan_03, plan_06, plan_05, plan_06, plan_08, 
+Gained cash for 1825 days: 874.49 $. Max Hash Rate gained: 16200H/s for 1792 days(59 months). 
+Future Income: 13245.99 $ after 697 days.
+
+161,051 plans created.
+9 plans in investment record, with 5 years investing period.
+Best plane: InvestmentRecord: plan_02, plan_01, plan_01, plan_03, plan_06, plan_04, plan_04, plan_07, plan_07, 
+Gained cash for 1825 days: 999.25 $. Max Hash Rate gained: 17600H/s for 1791 days(59 months). 
+Future Income: 13968.54 $ after 696 days.
+
+1,771,561 plans created. !!!
+10 plans in investment record, with 5 years investing period.
+Best plane: InvestmentRecord: plan_02, plan_01, plan_01, plan_03, plan_01, plan_06, plan_04, plan_06, plan_06, plan_08, 
+Gained cash for 1825 days: 90.25 $. Max Hash Rate gained: 18800H/s for 1823 days(60 months). 
+Future Income: 16251.89 $ after 728 days.
+Start mining with Hash Rate: 1300H/s. Income per day is: 2.56 $
+830.00 $ plan bought for 324 days (10 months). Total 324 days passed. (10 months) Continue mining with Hash Rate: 2300H/s New income per day will be: 4.53 $ 
+830.00 $ plan bought for 184 days (6 months). Total 508 days passed. (16 months) Continue mining with Hash Rate: 3300H/s New income per day will be: 6.50 $ 
+1411.00 $ plan bought for 217 days (7 months). Total 725 days passed. (24 months) Continue mining with Hash Rate: 5000H/s New income per day will be: 9.85 $ 
+Plan expired so 1300 H/s are removed. Left Hash Rate is: 3700H/s
+830.00 $ plan bought for 112 days (3 months). Total 837 days passed. (27 months) Continue mining with Hash Rate: 4700H/s New income per day will be: 9.26 $ 
+Plan expired so 1000 H/s are removed. Left Hash Rate is: 3700H/s
+2460.00 $ plan bought for 279 days (9 months). Total 1116 days passed. (37 months) Continue mining with Hash Rate: 6700H/s New income per day will be: 13.21 $ 
+Plan expired so 1000 H/s are removed. Left Hash Rate is: 5700H/s
+1909.00 $ plan bought for 148 days (4 months). Total 1264 days passed. (42 months) Continue mining with Hash Rate: 8000H/s New income per day will be: 15.77 $ 
+2460.00 $ plan bought for 156 days (5 months). Total 1420 days passed. (47 months) Continue mining with Hash Rate: 11000H/s New income per day will be: 21.68 $ 
+Plan expired so 1700 H/s are removed. Left Hash Rate is: 9300H/s
+2460.00 $ plan bought for 128 days (4 months). Total 1548 days passed. (51 months) Continue mining with Hash Rate: 12300H/s New income per day will be: 24.24 $ 
+Plan expired so 1000 H/s are removed. Left Hash Rate is: 11300H/s
+6150.00 $ plan bought for 275 days (9 months). Total 1823 days passed. (60 months) Continue mining with Hash Rate: 18800H/s New income per day will be: 37.05 $ 
+InvestmentRecord: plan_02, plan_01, plan_01, plan_03, plan_01, plan_06, plan_04, plan_06, plan_06, plan_08, 
+Gained cash for 1825 days: 90.25 $. Max Hash Rate gained: 18800H/s for 1823 days(60 months). 
+Future Income: 16251.89 $ after 728 days
