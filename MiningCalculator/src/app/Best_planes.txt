@@ -55,7 +55,7 @@ Best plane: InvestmentRecord: plan_02, plan_01, plan_01, plan_03, plan_06, plan_
 Gained cash for 1825 days: 999.25 $. Max Hash Rate gained: 17600H/s for 1791 days(59 months). 
 Future Income: 13968.54 $ after 696 days.
 
-1,771,561 plans created. !!!
+1,771,561 plans created. !!! 1 min, 1 sec. 618 milsec.
 10 plans in investment record, with 5 years investing period.
 Best plane: InvestmentRecord: plan_02, plan_01, plan_01, plan_03, plan_01, plan_06, plan_04, plan_06, plan_06, plan_08, 
 Gained cash for 1825 days: 90.25 $. Max Hash Rate gained: 18800H/s for 1823 days(60 months). 

@@ -3,6 +3,7 @@ package app;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class Calculator {
 	public static final double moneroPriceUSD = 320.28;
@@ -10,7 +11,7 @@ public class Calculator {
 	public static final double Hs = 1300.0;
 	public static final double XMR_1Hs_day = XMRDay / Hs;
 
-	public static final int investmentYears = 5;
+	public static final int investmentYears = 3;
 	public static final int investmentDays = 365 * investmentYears; // 3y = 1095
 
 	static int maxHashRate = Integer.MIN_VALUE;
@@ -128,12 +129,14 @@ public class Calculator {
 	}
 	
 	// OK
-	public static InvestmentRecord calcBestPredInvestPlanLists(List<List<InvestmentPlan>> listResults, int investmentdays, boolean print) throws CloneNotSupportedException {
-		InvestmentRecord bestInvRec = new InvestmentRecord();
+	public static List<InvestmentRecord> calcBestPredInvestPlanLists(List<List<InvestmentPlan>> listResults, int investmentdays, boolean print, int numTop) throws CloneNotSupportedException {
+//		InvestmentRecord bestInvRec = new InvestmentRecord();
+		List<InvestmentRecord> unOrderedList = new ArrayList<>();
+		List<InvestmentRecord> OrderedList = new ArrayList<>();
 		
 		for (List<InvestmentPlan> planList : listResults) {
 			InvestmentRecord invRec = calculatePredefineInvestmentPlan(planList, investmentdays, print);
-			
+			/*
 			int tempHashRate = invRec.getRecordMaxGainedHash();
 			int temppassedDays = invRec.getRecordPassedDays();
 			
@@ -145,9 +148,22 @@ public class Calculator {
 				maxPassedDays = temppassedDays;
 				bestInvRec = (InvestmentRecord) invRec.clone();
 			}
+			*/
+			
+			// check if all planes are active
+			if (planList.size() == invRec.getRecordPlans().size()) {
+				unOrderedList.add(invRec);
+			}
 		}
 		
-		return bestInvRec;
+		PriorityQueue<InvestmentRecord> heap = new PriorityQueue<>(unOrderedList.size());
+		heap.addAll(unOrderedList);
+		
+		for (int i = 0; i < numTop; i++) {
+			OrderedList.add(heap.poll());
+		}
+		
+		return OrderedList;
 		
 	}
 	
@@ -165,7 +181,7 @@ public class Calculator {
 	
 	// OK
 	public static void printText(Mining mining, int i, InvestmentPlan addPlan) {
-		System.out.println(Utils.formatter.format(addPlan.getPlanPrice()) + "$ plan bought for "
+		System.out.println(addPlan.planName + " " + Utils.formatter.format(addPlan.getPlanPrice()) + "$ plan bought for "
 				+ (i -  mining.passedDays) + " days (" + ((i -  mining.passedDays) / 30) + " months). "
 				+ "Total " + i + " days passed (" + (i / 30) + " months)."
 				+ " Continue mining with Hash Rate: " + mining.getMiningHash() + "H/s"
@@ -173,6 +189,8 @@ public class Calculator {
 	}
 
 	public static void main(String[] args) throws CloneNotSupportedException {
+		long startTime = System.currentTimeMillis();
+		System.out.println("Calculator started ...");
 /*
 		List<InvestmentPlan> stratPlanList = new ArrayList<>();
 		stratPlanList.add(Utils.plan_02);
@@ -181,43 +199,6 @@ public class Calculator {
 */
 		//		calculateInvestmentWithPlan_01(mining, investmentDays);
 
-		/*
-		 *plane 4 ok excel 
-		List<InvestmentPlan> demoPlanList = new ArrayList<>();
-		demoPlanList.add(Utils.plan_02);
-		demoPlanList.add(Utils.plan_01);
-		demoPlanList.add(Utils.plan_01);
-		demoPlanList.add(Utils.plan_02);
-		demoPlanList.add(Utils.plan_02);
-		demoPlanList.add(Utils.plan_03);
-		demoPlanList.add(Utils.plan_03);
-		demoPlanList.add(Utils.plan_04);
-		demoPlanList.add(Utils.plan_05);
-		demoPlanList.add(Utils.plan_06);
-		demoPlanList.add(Utils.plan_06);
-		demoPlanList.add(Utils.plan_07);
-		demoPlanList.add(Utils.plan_07);
-		demoPlanList.add(Utils.plan_08);
-		demoPlanList.add(Utils.plan_09);
-		demoPlanList.add(Utils.plan_10);
-		demoPlanList.add(Utils.plan_10);
-		demoPlanList.add(Utils.plan_11);
-		*/
-		/*
-		List<InvestmentPlan> demoPlanList = new ArrayList<>();
-		demoPlanList.add(Utils.plan_02);
-		demoPlanList.add(Utils.plan_01);
-		demoPlanList.add(Utils.plan_01);
-		demoPlanList.add(Utils.plan_03);
-		demoPlanList.add(Utils.plan_01);
-		demoPlanList.add(Utils.plan_06);
-		demoPlanList.add(Utils.plan_04);
-		demoPlanList.add(Utils.plan_06);
-		demoPlanList.add(Utils.plan_06);
-		demoPlanList.add(Utils.plan_08);
-		InvestmentRecord invRec = calculatePredefineInvestmentPlan(demoPlanList, investmentDays, true);
-		System.out.println(invRec);
-		*/
 		/*
 		List<InvestmentRecord> listResults = new ArrayList<>();
 
@@ -231,12 +212,12 @@ public class Calculator {
 		*/
 		
 		List<List<InvestmentPlan>> listResults = new ArrayList<>();
-		int resultWidth = 11;
+		int resultWidth = 3;
 		List<InvestmentPlan> boughtPlanes = new ArrayList<>();
 		boughtPlanes.add(Utils.plan_02);
-		boughtPlanes.add(Utils.plan_01);
-		boughtPlanes.add(Utils.plan_01);
-		boughtPlanes.add(Utils.plan_03);
+//		boughtPlanes.add(Utils.plan_01);
+//		boughtPlanes.add(Utils.plan_01);
+//		boughtPlanes.add(Utils.plan_03);
 		
 		InvestmentPlan[] result = new InvestmentPlan[resultWidth - boughtPlanes.size()];
 		createVarRepListStrings(listResults, boughtPlanes, result, 0);
@@ -245,10 +226,17 @@ public class Calculator {
 				+ investmentYears + " years investing period.");
 		System.out.println();
 		
-		InvestmentRecord bestInvRec = calcBestPredInvestPlanLists(listResults, investmentDays, false);
-		System.out.println("Best plane: " + bestInvRec);
-		System.out.println();
-		calcPredInvestRecord(bestInvRec, investmentDays, true);
+		int topListSize = 3;
+		List<InvestmentRecord> bestInvRec = calcBestPredInvestPlanLists(listResults, investmentDays, false, topListSize);
+//		System.out.println("Best plane: " + bestInvRec);
+		
+		for (InvestmentRecord investmentRecord : bestInvRec) {
+			System.out.println();
+			calcPredInvestRecord(investmentRecord, investmentDays, true);
+		}
+		
+		long endTime = System.currentTimeMillis();
+		System.err.println(Utils.duration(startTime, endTime));
 		
 	}
 

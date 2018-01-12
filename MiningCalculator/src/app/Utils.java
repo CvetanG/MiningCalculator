@@ -38,4 +38,24 @@ public class Utils {
 						plan_09,
 						plan_10,
 						plan_11));
+	
+	
+	public static String duration(long startTime, long endTime) {
+		long totalTime = endTime - startTime;
+		
+		int seconds = (int) (totalTime / 1000) % 60 ;
+		int minutes = (int) ((totalTime / (1000*60)) % 60);
+		int milisec = (int) (totalTime - ((seconds * 1000) + (minutes * 60 * 1000)));
+		
+		StringBuilder sb = new StringBuilder(64);
+		sb.append("Elapsed time: ");
+        sb.append(minutes);
+        sb.append(" min, ");
+        sb.append(seconds);
+        sb.append(" sec. ");
+        sb.append(milisec);
+        sb.append(" milsec.");
+        
+		return sb.toString();
+	}
 }

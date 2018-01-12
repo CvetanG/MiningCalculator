@@ -3,7 +3,7 @@ package app;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InvestmentRecord implements Cloneable {
+public class InvestmentRecord implements Cloneable, Comparable<InvestmentRecord> {
 	
 	List<String> recordPlans;
 	double recordCash;
@@ -108,6 +108,20 @@ public class InvestmentRecord implements Cloneable {
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
 		return super.clone();
+	}
+	
+	@Override
+	public int compareTo(InvestmentRecord iR) {
+		int diffMaxGainedHash;
+		int diffRecordPassedDays;
+		
+		diffMaxGainedHash = iR.recordMaxGainedHash - this.recordMaxGainedHash;
+		if (diffMaxGainedHash != 0) return diffMaxGainedHash;
+		
+		diffRecordPassedDays = this.recordPassedDays - iR.recordPassedDays;
+		if (diffRecordPassedDays != 0) return diffRecordPassedDays;
+		
+		return 0;
 	}
 	
 }
