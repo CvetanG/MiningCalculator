@@ -5,7 +5,7 @@ import java.util.List;
 
 public class InvestmentRecord implements Cloneable, Comparable<InvestmentRecord> {
 	
-	List<String> recordPlans;
+	List<InvestmentPlan> recordPlans;
 	double recordCash;
 	int recordMaxGainedHash;
 	double recordFutureIncome;
@@ -13,7 +13,7 @@ public class InvestmentRecord implements Cloneable, Comparable<InvestmentRecord>
 	int recordPassedDays; // to max gained hash
 	int recordActivePeriod;
 	
-	public InvestmentRecord(List<String> recordPlans, double recordCash, int recordMaxGainedHash,
+	public InvestmentRecord(List<InvestmentPlan> recordPlans, double recordCash, int recordMaxGainedHash,
 			double recordFutureIncome, int recordFuturePeriod, int recordPassedDays, int recordActivePeriod) {
 		this.recordPlans = recordPlans;
 		this.recordCash = recordCash;
@@ -28,15 +28,15 @@ public class InvestmentRecord implements Cloneable, Comparable<InvestmentRecord>
 		this.recordPlans = new ArrayList<>();
 	}
 
-	public void addPlanName(String planName) {
-		recordPlans.add(planName);
+	public void addPlan(InvestmentPlan iPlane) {
+		recordPlans.add(iPlane);
 	}
 
-	public List<String> getRecordPlans() {
+	public List<InvestmentPlan> getRecordPlans() {
 		return recordPlans;
 	}
 
-	public void setRecordPlans(List<String> recordPlans) {
+	public void setRecordPlans(List<InvestmentPlan> recordPlans) {
 		this.recordPlans = recordPlans;
 	}
 
@@ -91,9 +91,9 @@ public class InvestmentRecord implements Cloneable, Comparable<InvestmentRecord>
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		for (String plan : recordPlans) {
-			sb.append(plan);
-			if (plan != recordPlans.get(recordPlans.size() - 1)) {
+		for (int i = 0; i < recordPlans.size(); i++) {
+			sb.append(recordPlans.get(i).getPlanName());
+			if ((i + 1) != recordPlans.size()) {
 				sb.append(", ");
 			} else {
 				sb.append(".");
@@ -102,7 +102,7 @@ public class InvestmentRecord implements Cloneable, Comparable<InvestmentRecord>
 		return "InvestmentRecord: " + sb + "\nGained cash for " + recordActivePeriod + " days: " + Utils.formatter.format(recordCash)
 				+ "$. Max Hash Rate gained: " + recordMaxGainedHash + "H/s" + " for " + recordPassedDays + " days"
 				+ "(" + (recordPassedDays / 30) + " months). \nFuture Income: "
-				+ Utils.formatter.format(recordFutureIncome) + "$ after " + recordFuturePeriod + " days.";
+				+ Utils.formatter.format(recordFutureIncome) + "$ after " + recordFuturePeriod + " days.\n";
 	}
 	
 	@Override
@@ -114,12 +114,16 @@ public class InvestmentRecord implements Cloneable, Comparable<InvestmentRecord>
 	public int compareTo(InvestmentRecord iR) {
 		int diffMaxGainedHash;
 		int diffRecordPassedDays;
+		int diffRecordFutureIncome;
 		
 		diffMaxGainedHash = iR.recordMaxGainedHash - this.recordMaxGainedHash;
 		if (diffMaxGainedHash != 0) return diffMaxGainedHash;
 		
 		diffRecordPassedDays = this.recordPassedDays - iR.recordPassedDays;
 		if (diffRecordPassedDays != 0) return diffRecordPassedDays;
+		
+		diffRecordFutureIncome = (int) (this.recordFutureIncome - iR.recordFutureIncome);
+		if (diffRecordFutureIncome != 0) return diffRecordFutureIncome;
 		
 		return 0;
 	}

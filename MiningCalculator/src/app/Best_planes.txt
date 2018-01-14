@@ -78,3 +78,8 @@ Plan expired so 1000 H/s are removed. Left Hash Rate is: 11300H/s
 InvestmentRecord: plan_02, plan_01, plan_01, plan_03, plan_01, plan_06, plan_04, plan_06, plan_06, plan_08, 
 Gained cash for 1825 days: 90.25 $. Max Hash Rate gained: 18800H/s for 1823 days(60 months). 
 Future Income: 16251.89 $ after 728 days
+
+
+InvestmentRecord: plan_02, plan_02, plan_03.
+Gained cash for 1095 days: 2438,37 $. Max Hash Rate gained: 4300H/s for 697 days(23 months). 
+Future Income: 1258,45 $ after 332 days.

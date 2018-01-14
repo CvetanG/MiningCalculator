@@ -12,6 +12,7 @@ public class Mining {
 	public int miningHash;
 	public double income;
 	public int passedDays;
+	public int daysBetweenPlans;
 	public int invDays; // Investment Days
 
 	public Mining(List<InvestmentPlan> miningPlans, double XMR_1Hs_Day, double moneroPriceUSD, int invDays) throws CloneNotSupportedException {
@@ -22,7 +23,7 @@ public class Mining {
 		int tempHash = 0;
 		for (InvestmentPlan curPlan : miningPlans) {
 			tempHash += curPlan.getPlanHash();
-			record.addPlanName(curPlan.getPlanName());
+			record.addPlan(curPlan);
 		}
 		this.miningHash = tempHash;
 		this.invDays = invDays;
@@ -52,7 +53,11 @@ public class Mining {
 	public void addPlan(InvestmentPlan newPlan) throws CloneNotSupportedException {
 		this.miningPlans.add((InvestmentPlan) newPlan.clone());
 		this.miningHash += newPlan.getPlanHash();
-		this.record.addPlanName(newPlan.getPlanName());
+		this.record.addPlan(newPlan);
+		if (miningHash > record.getRecordMaxGainedHash()) {
+			record.setRecordMaxGainedHash(getMiningHash());
+			record.setRecordPassedDays(passedDays);
+		}
 	}
 
 	public void removePlan(List<InvestmentPlan> removeList, boolean print) {
@@ -60,22 +65,24 @@ public class Mining {
 		for (InvestmentPlan plan : removeList) {
 			this.miningHash -= plan.getPlanHash();
 			if (print) {
-				System.out.println("Plan expired so " + plan.getPlanHash() + " H/s are removed. Left Hash Rate is: "
+				System.err.println("-" + plan.getPlanName() + " expired on " + this.passedDays + " day. " + plan.getPlanHash() + " H/s are removed. Left Hash Rate is: "
 						+ this.miningHash + "H/s");
 			}
 		}
 	}
 
 	public void miningDay(boolean print) {
-		if (miningHash > record.getRecordMaxGainedHash()) {
-			record.setRecordMaxGainedHash(getMiningHash());
-			record.setRecordPassedDays(passedDays);
-		}
 		double result = calculateIncomePerDay();
+		// must use remove list because if we remove plan directly - miningPlans size is changed
 		List<InvestmentPlan> removeList = new ArrayList<>();
 		for (InvestmentPlan curPlan : this.miningPlans) {
 			curPlan.setPlanPeriod(curPlan.getPlanPeriod() - 1);
-			if (curPlan.getPlanPeriod() == 0) {
+			if (curPlan.getPlanPeriod() > 0) {
+				continue;
+			} else if (curPlan.getPlanPeriod() < 0) {
+				String message = "" + curPlan.getPlanName() + " plan period is less then 0 (" + curPlan.getPlanPeriod() + ")";
+				throw new RuntimeException(message);
+			} else if (curPlan.getPlanPeriod() == 0) {
 				removeList.add(curPlan);
 			}
 		}
@@ -125,6 +132,22 @@ public class Mining {
 	public void setRecord(InvestmentRecord record) {
 		this.record = record;
 	}
+	
+	public double getIncome() {
+		return income;
+	}
+
+	public void setIncome(double income) {
+		this.income = income;
+	}
+
+	public int getPassedDays() {
+		return passedDays;
+	}
+
+	public void setPassedDays(int passedDays) {
+		this.passedDays = passedDays;
+	}
 
 	public int getInvDays() {
 		return invDays;
@@ -139,6 +162,10 @@ public class Mining {
 		return record + ", " + miningPlans + ", " + moneroPriceUSD
 				+ ", " + XMR_1Hs_Day + ", " + miningHash + ", " + income + ", "
 				+ passedDays + ", " + invDays;
+	}
+
+	public void substractIncome(double substract) {
+		this.setIncome(this.getIncome() - substract);
 	}
 	
 }

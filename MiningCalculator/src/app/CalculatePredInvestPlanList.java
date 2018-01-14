@@ -3,13 +3,15 @@ package app;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CalculatePredifinedList {
+public class CalculatePredInvestPlanList {
 	
 	public static void main(String[] args) throws CloneNotSupportedException {
 
-		int investmentYears = 3;
+		int investmentYears = Calculator.INVESTMENTYEARS;
 		int investmentDays = 365 * investmentYears;
+		
 		List<InvestmentPlan> demoPlanList = new ArrayList<>();
+		
 		//plane 4 ok excel 
 		/*demoPlanList.add(Utils.plan_02);
 		demoPlanList.add(Utils.plan_01);
@@ -30,11 +32,11 @@ public class CalculatePredifinedList {
 		demoPlanList.add(Utils.plan_10);
 		demoPlanList.add(Utils.plan_11);*/
 		
-		demoPlanList.add(Utils.plan_02);
-		demoPlanList.add(Utils.plan_02);
-		demoPlanList.add(Utils.plan_06);
+		demoPlanList.add((InvestmentPlan) Utils.plan_02.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_02.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_05.clone());
 
-		InvestmentRecord invRec = Calculator.calculatePredefineInvestmentPlan(demoPlanList, investmentDays, true);
+		InvestmentRecord invRec = Calculator.calculatePredInvestPlanList(demoPlanList, investmentDays, true);
 		System.out.println(invRec);
 	}
 }
