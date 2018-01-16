@@ -28,17 +28,17 @@ public class Utils {
 	public static final List<InvestmentPlan> allPlanList = Collections.unmodifiableList(
 			Arrays.asList(
 						plan_01,
-						plan_02
-//						plan_02,
-//						plan_03,
-//						plan_04,
-//						plan_05,
-//						plan_06,
-//						plan_07,
-//						plan_08,
-//						plan_09,
-//						plan_10,
-//						plan_11
+//						plan_02
+						plan_02,
+						plan_03,
+						plan_04,
+						plan_05,
+						plan_06,
+						plan_07,
+						plan_08,
+						plan_09,
+						plan_10,
+						plan_11
 						));
 	
 	

@@ -11,7 +11,7 @@ public class Calculator {
 	public static final double HS = 1300.0;
 	public static final double XMR_1HS_DAY = XMRDAY / HS;
 
-	public static final int INVESTMENTYEARS = 4;
+	public static final int INVESTMENTYEARS = 3;
 	public static final int INVESTMENTDAYS = 365 * INVESTMENTYEARS; // 3y = 1095
 
 	// OK
@@ -164,7 +164,7 @@ public class Calculator {
 		//		calculateInvestmentWithPlan_01(mining, investmentDays);
  		*/
 
-		int resultWidth = 4;
+		int resultWidth = 5; // max 7
 		List<InvestmentPlan> boughtPlanes = new ArrayList<>();
 		boughtPlanes.add((InvestmentPlan) Utils.plan_02.clone());
 //		boughtPlanes.add((InvestmentPlan) Utils.plan_01.clone());
@@ -172,16 +172,21 @@ public class Calculator {
 //		boughtPlanes.add((InvestmentPlan) Utils.plan_03.clone());
 		
 		List<List<InvestmentPlan>> generatedInvPlanList = new ArrayList<>();
-		InvestmentPlan[] generatedArray = new InvestmentPlan[resultWidth - boughtPlanes.size()];
+//		InvestmentPlan[] generatedArray = new InvestmentPlan[resultWidth - boughtPlanes.size()];
 		int count = 0;
-		createVariationRepetitionInvestPlanList(generatedInvPlanList, boughtPlanes, generatedArray, count);
+		
+		for (int i = 1; i <= resultWidth - boughtPlanes.size(); i++) {
+			InvestmentPlan[] generatedArray = new InvestmentPlan[i];
+			
+			createVariationRepetitionInvestPlanList(generatedInvPlanList, boughtPlanes, generatedArray, count);
+		}
 		
 		System.out.println(generatedInvPlanList.size() + " plans created.");
 		System.out.println((resultWidth) + " plans in investment record, with " 
 				+ INVESTMENTYEARS + " years investing period.");
 //		System.out.println();
 		
-		int topListSize = 5;
+		int topListSize = 15;
 		List<InvestmentRecord> bestInvRec = calcBestPredInvestPlanLists(generatedInvPlanList, INVESTMENTDAYS, topListSize, false);
 		
 		for (InvestmentRecord investmentRecord : bestInvRec) {

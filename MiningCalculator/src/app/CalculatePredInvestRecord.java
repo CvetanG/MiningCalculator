@@ -15,9 +15,9 @@ public class CalculatePredInvestRecord {
 		
 		List<InvestmentPlan> demoPlanList = new ArrayList<>();
 		demoPlanList.add((InvestmentPlan) Utils.plan_02.clone());
-		demoPlanList.add((InvestmentPlan) Utils.plan_01.clone());
-		demoPlanList.add((InvestmentPlan) Utils.plan_01.clone());
-		demoPlanList.add((InvestmentPlan) Utils.plan_03.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_02.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_04.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_11.clone());
 		
 		investmentRecord.setRecordPlans(demoPlanList);
 		

@@ -1,7 +1,6 @@
 package app;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.PriorityQueue;
 
@@ -17,15 +16,17 @@ public class Calculator_02 {
 
 	// OK ?
 	public static void createVariationRepetitionInvestPlanList(Mining mining, List<InvestmentRecord> listResults,
-			int investDaysLeft) throws CloneNotSupportedException {
+			int investDays, int count) throws CloneNotSupportedException {
 		
 
-		for (int i = 0; i < Utils.allPlanList.size(); i++) {
-			for (int j = 1; j <= investDaysLeft; j++) {
-				InvestmentPlan addPlan =  Utils.allPlanList.get(i);
+//		for (int i = 0; i < Utils.allPlanList.size(); i++) {
+			for (int j = (mining.passedDays + 1); j <= investDays; j++) {
+					
+				InvestmentPlan addPlan =  Utils.allPlanList.get(count);
 				double pricePlan = addPlan.getPlanPrice();
 				//				mining.setPassedDays(j);
 				mining.miningDay(false);
+				mining.passedDays++;
 
 				if (mining.getIncome() > pricePlan) {
 					mining.substractIncome(pricePlan);
@@ -36,17 +37,18 @@ public class Calculator_02 {
 
 					//				if (mining.passedDays <= investDaysLeft) {
 
-					createVariationRepetitionInvestPlanList((Mining) mining.clone(), listResults, investDaysLeft - j);
+					mining.daysBetweenPlans = (j - mining.daysBetweenPlans);
+					createVariationRepetitionInvestPlanList((Mining) mining.clone(), listResults, investDays, count);
 					//				} else {
 					//					count++;
 					//				}
-//					mining.daysBetweenPlans = j;
 					//						} 
 				}
+				if (mining.passedDays == investDays) {
+					mining.calculateLastDays(mining.income);
+					listResults.add(mining.getRecord());
+				}
 			}
-			mining.calculateLastDays(mining.income);
-			listResults.add(mining.getRecord());
-		}
 	}
 
 	
@@ -167,7 +169,7 @@ public class Calculator_02 {
 		Mining mining = new Mining(startPlanList, XMR_1HS_DAY, MONEROPRICEUSD, INVESTMENTDAYS);
 		
 		
-		createVariationRepetitionInvestPlanList(mining, generatedInvRecords, INVESTMENTDAYS);
+		createVariationRepetitionInvestPlanList(mining, generatedInvRecords, INVESTMENTDAYS, count);
 		
 		
 		// OK

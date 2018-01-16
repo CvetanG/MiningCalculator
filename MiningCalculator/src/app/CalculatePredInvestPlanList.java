@@ -7,34 +7,35 @@ public class CalculatePredInvestPlanList {
 	
 	public static void main(String[] args) throws CloneNotSupportedException {
 
-		int investmentYears = Calculator_02.INVESTMENTYEARS;
+//		int investmentYears = Calculator_02.INVESTMENTYEARS;
+		int investmentYears = 7;
 		int investmentDays = 365 * investmentYears;
 		
 		List<InvestmentPlan> demoPlanList = new ArrayList<>();
 		
-		//plane 4 ok excel 
-		/*demoPlanList.add(Utils.plan_02);
-		demoPlanList.add(Utils.plan_01);
-		demoPlanList.add(Utils.plan_01);
-		demoPlanList.add(Utils.plan_02);
-		demoPlanList.add(Utils.plan_02);
-		demoPlanList.add(Utils.plan_03);
-		demoPlanList.add(Utils.plan_03);
-		demoPlanList.add(Utils.plan_04);
-		demoPlanList.add(Utils.plan_05);
-		demoPlanList.add(Utils.plan_06);
-		demoPlanList.add(Utils.plan_06);
-		demoPlanList.add(Utils.plan_07);
-		demoPlanList.add(Utils.plan_07);
-		demoPlanList.add(Utils.plan_08);
-		demoPlanList.add(Utils.plan_09);
-		demoPlanList.add(Utils.plan_10);
-		demoPlanList.add(Utils.plan_10);
-		demoPlanList.add(Utils.plan_11);*/
-		
+		//plane 4.1 excel 
+		demoPlanList.add((InvestmentPlan) Utils.plan_02.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_01.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_01.clone());
 		demoPlanList.add((InvestmentPlan) Utils.plan_02.clone());
 		demoPlanList.add((InvestmentPlan) Utils.plan_02.clone());
 		demoPlanList.add((InvestmentPlan) Utils.plan_03.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_03.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_04.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_05.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_06.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_06.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_07.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_07.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_08.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_09.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_10.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_10.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_11.clone());
+
+//		demoPlanList.add((InvestmentPlan) Utils.plan_02.clone());
+//		demoPlanList.add((InvestmentPlan) Utils.plan_02.clone());
+//		demoPlanList.add((InvestmentPlan) Utils.plan_03.clone());
 //		demoPlanList.add((InvestmentPlan) Utils.plan_03.clone());
 //		demoPlanList.add((InvestmentPlan) Utils.plan_04.clone());
 
