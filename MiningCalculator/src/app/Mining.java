@@ -3,7 +3,7 @@ package app;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Mining {
+public class Mining implements Cloneable{
 	
 	public InvestmentRecord record;
 	public List<InvestmentPlan> miningPlans;
@@ -65,7 +65,7 @@ public class Mining {
 		for (InvestmentPlan plan : removeList) {
 			this.miningHash -= plan.getPlanHash();
 			if (print) {
-				System.err.println("-" + plan.getPlanName() + " expired on " + this.passedDays + " day. " + plan.getPlanHash() + " H/s are removed. Left Hash Rate is: "
+				System.out.println("-" + plan.getPlanName() + " expired on " + this.passedDays + " day. " + plan.getPlanHash() + " H/s are removed. Left Hash Rate is: "
 						+ this.miningHash + "H/s");
 			}
 		}
@@ -79,11 +79,11 @@ public class Mining {
 			curPlan.setPlanPeriod(curPlan.getPlanPeriod() - 1);
 			if (curPlan.getPlanPeriod() > 0) {
 				continue;
+			} else if (curPlan.getPlanPeriod() == 0) {
+				removeList.add(curPlan);
 			} else if (curPlan.getPlanPeriod() < 0) {
 				String message = "" + curPlan.getPlanName() + " plan period is less then 0 (" + curPlan.getPlanPeriod() + ")";
 				throw new RuntimeException(message);
-			} else if (curPlan.getPlanPeriod() == 0) {
-				removeList.add(curPlan);
 			}
 		}
 		if (!removeList.isEmpty()) {
@@ -166,6 +166,11 @@ public class Mining {
 
 	public void substractIncome(double substract) {
 		this.setIncome(this.getIncome() - substract);
+	}
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 	
 }

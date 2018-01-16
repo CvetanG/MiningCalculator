@@ -164,7 +164,7 @@ public class Calculator {
 		//		calculateInvestmentWithPlan_01(mining, investmentDays);
  		*/
 
-		int resultWidth = 3;
+		int resultWidth = 4;
 		List<InvestmentPlan> boughtPlanes = new ArrayList<>();
 		boughtPlanes.add((InvestmentPlan) Utils.plan_02.clone());
 //		boughtPlanes.add((InvestmentPlan) Utils.plan_01.clone());

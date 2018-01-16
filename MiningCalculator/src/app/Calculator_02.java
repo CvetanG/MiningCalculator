@@ -15,31 +15,40 @@ public class Calculator_02 {
 	public static final int INVESTMENTYEARS = 3;
 	public static final int INVESTMENTDAYS = 365 * INVESTMENTYEARS; // 3y = 1095
 
-	// OK
-	public static void createVariationRepetitionInvestPlanList(List<List<InvestmentPlan>> listResults,
-			List<InvestmentPlan> boughtPlanes, InvestmentPlan[] result, int count) throws CloneNotSupportedException {
+	// OK ?
+	public static void createVariationRepetitionInvestPlanList(Mining mining, List<InvestmentRecord> listResults,
+			int investDaysLeft) throws CloneNotSupportedException {
 		
-		List<InvestmentPlan> startPlanList = new ArrayList<>();
-		startPlanList.add(result[0]);
-		int j  = 1;
 
-		Mining mining = new Mining(startPlanList, XMR_1HS_DAY, MONEROPRICEUSD, INVESTMENTDAYS);
-		
-		
-		if (count < result.length) {
-			for (int i = 0; i < Utils.allPlanList.size(); i++) {
-				result[count] = Utils.allPlanList.get(i);
-				createVariationRepetitionInvestPlanList(listResults, boughtPlanes, result, count + 1);
+		for (int i = 0; i < Utils.allPlanList.size(); i++) {
+			for (int j = 1; j <= investDaysLeft; j++) {
+				InvestmentPlan addPlan =  Utils.allPlanList.get(i);
+				double pricePlan = addPlan.getPlanPrice();
+				//				mining.setPassedDays(j);
+				mining.miningDay(false);
+
+				if (mining.getIncome() > pricePlan) {
+					mining.substractIncome(pricePlan);
+					mining.addPlan(addPlan);
+					// if (false) {
+					// 	miningLog(mining, j, addPlan);
+					// }
+
+					//				if (mining.passedDays <= investDaysLeft) {
+
+					createVariationRepetitionInvestPlanList((Mining) mining.clone(), listResults, investDaysLeft - j);
+					//				} else {
+					//					count++;
+					//				}
+//					mining.daysBetweenPlans = j;
+					//						} 
+				}
 			}
-		} else {
-			List<InvestmentPlan> tempList = new ArrayList<>();
-			for (InvestmentPlan bPlan : boughtPlanes) {
-				tempList.add((InvestmentPlan) bPlan.clone());
-			}
-			tempList.addAll(Arrays.asList(result.clone()));
-			listResults.add(tempList);
+			mining.calculateLastDays(mining.income);
+			listResults.add(mining.getRecord());
 		}
 	}
+
 	
 	// OK
 	public static void calculatePredInvestRecord(InvestmentRecord record, int investDays,
@@ -92,29 +101,21 @@ public class Calculator_02 {
 	}
 
 
-	// OK
-	public static List<InvestmentRecord> calcBestPredInvestPlanLists(List<List<InvestmentPlan>> listListIvestPlans,
+	// OK 
+	public static List<InvestmentRecord> calcBestPredInvestRecords(List<InvestmentRecord> ivestRecords,
 			int investDays, int numTop, boolean print) throws CloneNotSupportedException {
 		
-		List<InvestmentRecord> unOrderedList = new ArrayList<>();
-		List<InvestmentRecord> OrderedList = new ArrayList<>();
+		List<InvestmentRecord> orderedList = new ArrayList<>();
 		
-		for (List<InvestmentPlan> planList : listListIvestPlans) {
-			InvestmentRecord invRec = calculatePredInvestPlanList(planList, investDays, print);
-			if (planList.size() == invRec.getRecordPlans().size()) {
-				unOrderedList.add(invRec);
-			}
-		}
-		
-		if (unOrderedList.size() > 0) {
-			PriorityQueue<InvestmentRecord> heap = new PriorityQueue<>(unOrderedList.size());
-			heap.addAll(unOrderedList);
+		if (ivestRecords.size() > 0) {
+			PriorityQueue<InvestmentRecord> heap = new PriorityQueue<>(ivestRecords.size());
+			heap.addAll(ivestRecords);
 			
 			for (int i = 0; i < numTop; i++) {
-				OrderedList.add(heap.poll());
+				orderedList.add(heap.poll());
 			}
 			
-			return OrderedList;
+			return orderedList;
 		} else {
 			String message = "There is no investmentplans with these parameters!!!";
 			throw new RuntimeException(message);
@@ -152,18 +153,26 @@ public class Calculator_02 {
 //		boughtPlanes.add((InvestmentPlan) Utils.plan_01.clone());
 //		boughtPlanes.add((InvestmentPlan) Utils.plan_03.clone());
 		
-		List<List<InvestmentPlan>> generatedInvPlanList = new ArrayList<>();
-		InvestmentPlan[] generatedArray = new InvestmentPlan[1000];
-		for (int i = 0; i < boughtPlanes.size(); i++) {
-			generatedArray[i] = boughtPlanes.get(i);
-		}
+		List<InvestmentRecord> generatedInvRecords = new ArrayList<>();
+//		InvestmentPlan[] generatedArray = new InvestmentPlan[1000];
+//		for (int i = 0; i < boughtPlanes.size(); i++) {
+//			generatedArray[i] = boughtPlanes.get(i);
+//		}
 		int count = 0;
 		
+		List<InvestmentPlan> startPlanList = new ArrayList<>();
+		startPlanList.add(boughtPlanes.get(0));
+		int j  = 1;
+
+		Mining mining = new Mining(startPlanList, XMR_1HS_DAY, MONEROPRICEUSD, INVESTMENTDAYS);
 		
-		createVariationRepetitionInvestPlanList(generatedInvPlanList, boughtPlanes, generatedArray, count);
 		
+		createVariationRepetitionInvestPlanList(mining, generatedInvRecords, INVESTMENTDAYS);
+		
+		
+		// OK
 		int topListSize = 5;
-		List<InvestmentRecord> bestInvRec = calcBestPredInvestPlanLists(generatedInvPlanList, INVESTMENTDAYS, topListSize, false);
+		List<InvestmentRecord> bestInvRec = calcBestPredInvestRecords(generatedInvRecords, INVESTMENTDAYS, topListSize, false);
 		
 		for (InvestmentRecord investmentRecord : bestInvRec) {
 			calculatePredInvestRecord(investmentRecord, INVESTMENTDAYS, true);

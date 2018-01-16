@@ -7,7 +7,7 @@ public class CalculatePredInvestPlanList {
 	
 	public static void main(String[] args) throws CloneNotSupportedException {
 
-		int investmentYears = Calculator.INVESTMENTYEARS;
+		int investmentYears = Calculator_02.INVESTMENTYEARS;
 		int investmentDays = 365 * investmentYears;
 		
 		List<InvestmentPlan> demoPlanList = new ArrayList<>();
@@ -34,7 +34,9 @@ public class CalculatePredInvestPlanList {
 		
 		demoPlanList.add((InvestmentPlan) Utils.plan_02.clone());
 		demoPlanList.add((InvestmentPlan) Utils.plan_02.clone());
-		demoPlanList.add((InvestmentPlan) Utils.plan_05.clone());
+		demoPlanList.add((InvestmentPlan) Utils.plan_03.clone());
+//		demoPlanList.add((InvestmentPlan) Utils.plan_03.clone());
+//		demoPlanList.add((InvestmentPlan) Utils.plan_04.clone());
 
 		InvestmentRecord invRec = Calculator.calculatePredInvestPlanList(demoPlanList, investmentDays, true);
 		System.out.println(invRec);
