@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.PriorityQueue;
 
 public class Calculator {
-	public static final double MONEROPRICEUSD = 320.28;
-	public static final double XMRDAY = 0.008;
+	public static final double MONEROPRICEUSD = 220.28;
+	public static final double XMRDAY = 0.007;
 	public static final double HS = 1300.0;
 	public static final double XMR_1HS_DAY = XMRDAY / HS;
 
@@ -115,6 +115,12 @@ public class Calculator {
 			}
 		}
 		
+		System.out.println(unOrderedList.size() + " plans match the requarements!");
+		
+		if (unOrderedList.size() < numTop) {
+			numTop = unOrderedList.size();
+		}
+		
 		if (unOrderedList.size() > 0) {
 			PriorityQueue<InvestmentRecord> heap = new PriorityQueue<>(unOrderedList.size());
 			heap.addAll(unOrderedList);
@@ -163,8 +169,10 @@ public class Calculator {
 		Mining mining = new Mining(stratPlanList, XMR_1Hs_day, moneroPriceUSD, investmentDays);
 		//		calculateInvestmentWithPlan_01(mining, investmentDays);
  		*/
-
+		
+		// number of plans bought during the period
 		int resultWidth = 5; // max 7
+		// already bought plans
 		List<InvestmentPlan> boughtPlanes = new ArrayList<>();
 		boughtPlanes.add((InvestmentPlan) Utils.plan_02.clone());
 //		boughtPlanes.add((InvestmentPlan) Utils.plan_01.clone());
@@ -186,7 +194,8 @@ public class Calculator {
 				+ INVESTMENTYEARS + " years investing period.");
 //		System.out.println();
 		
-		int topListSize = 15;
+		// number of top result 
+		int topListSize = 2;
 		List<InvestmentRecord> bestInvRec = calcBestPredInvestPlanLists(generatedInvPlanList, INVESTMENTDAYS, topListSize, false);
 		
 		for (InvestmentRecord investmentRecord : bestInvRec) {
